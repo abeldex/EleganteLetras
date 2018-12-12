@@ -1,0 +1,53 @@
+﻿<UserControl x:Class="EleganteLetras.TabLetraContent"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:wpfx="http://schemas.xceed.com/wpf/xaml/toolkit"
+             xmlns:local="clr-namespace:EleganteLetras"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid>
+        <RichTextBox x:Name="txt_letra" VerticalAlignment="Stretch" Margin="0 35 0 0" HorizontalAlignment="Stretch" FontSize="25" VerticalScrollBarVisibility="Auto" x:FieldModifier="public">
+            <FlowDocument>
+                <Paragraph TextAlignment="Center" >
+                    <Run Text=""/>
+                </Paragraph>
+            </FlowDocument>
+        </RichTextBox>
+        <ToolBar VerticalAlignment="Top">
+            <ToggleButton Command="EditingCommands.ToggleBold" x:Name="btnBold">
+                <materialDesign:PackIcon Kind="FormatBold" Height="24" Width="24" BorderBrush="{x:Null}" />
+            </ToggleButton>
+            <ToggleButton Command="EditingCommands.ToggleItalic" x:Name="btnItalic">
+                <materialDesign:PackIcon Kind="FormatItalic" Height="24" Width="24" BorderBrush="{x:Null}" />
+            </ToggleButton>
+            <ToggleButton Command="EditingCommands.ToggleUnderline" x:Name="btnUnderline">
+                <materialDesign:PackIcon Kind="FormatUnderline" Height="24" Width="24" BorderBrush="{x:Null}" />
+            </ToggleButton>
+            <Separator />
+            <ComboBox x:Name="cmbFontFamily" Width="150" SelectionChanged="cmbFontFamily_SelectionChanged">
+                <materialDesign:HintAssist.Hint>
+                    <StackPanel Orientation="Horizontal" Margin="-2 0 0 0">
+                        <materialDesign:PackIcon Kind="Text"  Height="20" Width="20" />
+                        <TextBlock><Run Text="Tipo de Fuente"/></TextBlock>
+                    </StackPanel>
+                </materialDesign:HintAssist.Hint>
+            </ComboBox>
+            <Separator />
+            <ComboBox x:Name="cmbFontSize" Width="100" IsEditable="True"  TextBoxBase.TextChanged="cmbFontSize_TextChanged">
+                <materialDesign:HintAssist.Hint>
+                    <StackPanel Orientation="Horizontal" Margin="-2 0 0 0">
+                        <materialDesign:PackIcon Kind="FormatSize"  Height="20" Width="20" />
+                        <TextBlock><Run Text="Tamaño"/></TextBlock>
+                    </StackPanel>
+                </materialDesign:HintAssist.Hint>
+            </ComboBox>
+            <Separator />
+            <Label VerticalAlignment="Center" HorizontalAlignment="Center" Content="Color:" />
+            <wpfx:ColorPicker x:Name="ColorPickerTab" DisplayColorAndName="False" ShowDropDownButton="False"  SelectedColorChanged="ColorPickerTab_SelectedColorChanged"  BorderBrush="{x:Null}" Background="{x:Null}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+
+        </ToolBar>
+    </Grid>
+</UserControl>
