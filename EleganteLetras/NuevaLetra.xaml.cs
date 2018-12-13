@@ -25,6 +25,7 @@ namespace EleganteLetras
             InitializeComponent();
             cmbFontFamily.ItemsSource = Fonts.SystemFontFamilies.OrderBy(f => f.Source);
             cmbFontSize.ItemsSource = new List<double>() { 8, 9, 10, 11, 12, 14, 16, 18, 20, 22, 24, 26, 28, 36, 48, 72 };
+            ColorPicker1.SelectedColor = Colors.Black;
         }
 
         private void btn_nuevo_Click(object sender, RoutedEventArgs e)

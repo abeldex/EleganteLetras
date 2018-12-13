@@ -9,42 +9,45 @@
         xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
         xmlns:local="clr-namespace:EleganteLetras"
         mc:Ignorable="d"
-        Title="Registrar Nueva Letra" Height="450" Width="800" Icon="img/letras_App.png">
+        Title="" Height="600" Width="800" Icon="img/letras_App.png" WindowStartupLocation="CenterScreen">
     <Grid>
+        <materialDesign:ColorZone Mode="PrimaryDark" Padding="0" Height="120">
+            <DockPanel>
+                <ToolBar VerticalAlignment="Top" Background="{x:Null}">
+                    <ToggleButton Command="EditingCommands.ToggleBold" Name="btnBold">
+                        <materialDesign:PackIcon Kind="FormatBold" Height="24" Width="24" BorderBrush="{x:Null}" />
+                    </ToggleButton>
+                    <ToggleButton Command="EditingCommands.ToggleItalic" Name="btnItalic">
+                        <materialDesign:PackIcon Kind="FormatItalic" Height="24" Width="24" BorderBrush="{x:Null}" />
+                    </ToggleButton>
+                    <ToggleButton Command="EditingCommands.ToggleUnderline" Name="btnUnderline">
+                        <materialDesign:PackIcon Kind="FormatUnderline" Height="24" Width="24" BorderBrush="{x:Null}" />
+                    </ToggleButton>
+                    <Separator />
+                    <ComboBox Name="cmbFontFamily" Width="150" SelectionChanged="cmbFontFamily_SelectionChanged" Foreground="{DynamicResource PrimaryHueLightBrush}" BorderBrush="{DynamicResource PrimaryHueLightBrush}">
+                        <materialDesign:HintAssist.Hint>
+                            <StackPanel Orientation="Horizontal" Margin="-2 0 0 0">
+                                <materialDesign:PackIcon Kind="Text"  Height="20" Width="20" />
+                                <TextBlock><Run Text="Tipo de Fuente"/></TextBlock>
+                            </StackPanel>
+                        </materialDesign:HintAssist.Hint>
+                    </ComboBox>
+                    <Separator />
+                    <ComboBox Name="cmbFontSize" Width="100" IsEditable="True"  TextBoxBase.TextChanged="cmbFontSize_TextChanged" Foreground="{DynamicResource PrimaryHueLightBrush}" BorderBrush="{DynamicResource PrimaryHueLightBrush}">
+                        <materialDesign:HintAssist.Hint>
+                            <StackPanel Orientation="Horizontal" Margin="-2 0 0 0">
+                                <materialDesign:PackIcon Kind="FormatSize"  Height="20" Width="20" />
+                                <TextBlock><Run Text="Tamaño"/></TextBlock>
+                            </StackPanel>
+                        </materialDesign:HintAssist.Hint>
+                    </ComboBox>
+                    <Separator />
+                    <Label VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="{DynamicResource PrimaryHueLightBrush}">Color:</Label>
+                    <wpfx:ColorPicker Name="ColorPicker1" DisplayColorAndName="False" ShowDropDownButton="False"  SelectedColorChanged="ColorPicker1_SelectedColorChanged"  BorderBrush="{x:Null}" Background="{x:Null}" VerticalAlignment="Center" HorizontalAlignment="Center" />
 
-        <ToolBar VerticalAlignment="Top">
-            <ToggleButton Command="EditingCommands.ToggleBold" Name="btnBold">
-                <materialDesign:PackIcon Kind="FormatBold" Height="24" Width="24" BorderBrush="{x:Null}" />
-            </ToggleButton>
-            <ToggleButton Command="EditingCommands.ToggleItalic" Name="btnItalic">
-                <materialDesign:PackIcon Kind="FormatItalic" Height="24" Width="24" BorderBrush="{x:Null}" />
-            </ToggleButton>
-            <ToggleButton Command="EditingCommands.ToggleUnderline" Name="btnUnderline">
-                <materialDesign:PackIcon Kind="FormatUnderline" Height="24" Width="24" BorderBrush="{x:Null}" />
-            </ToggleButton>
-            <Separator />
-            <ComboBox Name="cmbFontFamily" Width="150" SelectionChanged="cmbFontFamily_SelectionChanged">
-                <materialDesign:HintAssist.Hint>
-                    <StackPanel Orientation="Horizontal" Margin="-2 0 0 0">
-                        <materialDesign:PackIcon Kind="Text"  Height="20" Width="20" />
-                        <TextBlock><Run Text="Tipo de Fuente"/></TextBlock>
-                    </StackPanel>
-                </materialDesign:HintAssist.Hint>
-            </ComboBox>
-            <Separator />
-            <ComboBox Name="cmbFontSize" Width="100" IsEditable="True"  TextBoxBase.TextChanged="cmbFontSize_TextChanged">
-                <materialDesign:HintAssist.Hint>
-                    <StackPanel Orientation="Horizontal" Margin="-2 0 0 0">
-                        <materialDesign:PackIcon Kind="FormatSize"  Height="20" Width="20" />
-                        <TextBlock><Run Text="Tamaño"/></TextBlock>
-                    </StackPanel>
-                </materialDesign:HintAssist.Hint>
-            </ComboBox>
-            <Separator />
-            <Label VerticalAlignment="Center" HorizontalAlignment="Center" >Color:</Label>
-            <wpfx:ColorPicker Name="ColorPicker1" DisplayColorAndName="False" ShowDropDownButton="False"  SelectedColorChanged="ColorPicker1_SelectedColorChanged"  BorderBrush="{x:Null}" Background="{x:Null}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-            
-        </ToolBar>
+                </ToolBar>
+            </DockPanel>
+        </materialDesign:ColorZone>
         <RichTextBox x:Name="txt_letra" Margin="10,95,10,10" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" FontSize="25" VerticalScrollBarVisibility="Auto" >
             <FlowDocument>
                 <Paragraph TextAlignment="Center" >
@@ -52,13 +55,13 @@
                 </Paragraph>
             </FlowDocument>
         </RichTextBox>
-        <Button x:Name="btn_nuevo" Style="{StaticResource MaterialDesignFloatingActionButton}"
+        <Button x:Name="btn_nuevo" Style="{StaticResource MaterialDesignFloatingActionButton}" 
             Margin="0,37,10,0" HorizontalAlignment="Right" VerticalAlignment="Top"
-            ToolTip="Nuevo" Height="48" Width="48" BorderBrush="{x:Null}" Click="btn_nuevo_Click" >
+            ToolTip="Guardar" Height="48" Width="48" BorderBrush="{x:Null}" Click="btn_nuevo_Click" >
             <materialDesign:PackIcon Kind="ContentSave" Height="24" Width="24" BorderBrush="{x:Null}" />
 
         </Button>
-        <TextBox x:Name="txt_titulo" HorizontalAlignment="Left" Height="49" Margin="10,35,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="392" FontSize="20" Style="{StaticResource MaterialDesignFloatingHintTextBox}">
+        <TextBox x:Name="txt_titulo" HorizontalAlignment="Left" Height="49" Margin="10,35,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="392" FontSize="20" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Foreground="{DynamicResource PrimaryHueLightBrush}" BorderBrush="{DynamicResource PrimaryHueLightBrush}">
             <materialDesign:HintAssist.Hint>
                 <StackPanel Orientation="Horizontal" Margin="-2 0 0 0">
                     <materialDesign:PackIcon Kind="RenameBox" Height="20" Width="20" />
@@ -66,7 +69,7 @@
                 </StackPanel>
             </materialDesign:HintAssist.Hint>
         </TextBox>
-        <TextBox x:Name="txt_grupo" HorizontalAlignment="Left" Height="49" Margin="420,35,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="242" FontSize="20" Style="{StaticResource MaterialDesignFloatingHintTextBox}">
+        <TextBox x:Name="txt_grupo" HorizontalAlignment="Left" Height="49" Margin="420,35,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="242" FontSize="20" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Foreground="{DynamicResource PrimaryHueLightBrush}" BorderBrush="{DynamicResource PrimaryHueLightBrush}">
             <materialDesign:HintAssist.Hint>
                 <StackPanel Orientation="Horizontal" Margin="-2 0 0 0">
                     <materialDesign:PackIcon Kind="GuitarAcoustic" Height="20" Width="20" />

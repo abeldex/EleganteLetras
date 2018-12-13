@@ -51,25 +51,38 @@
                             </Button>
                         </Grid>
                     </materialDesign:ColorZone>
-                    
+
                     <Button Style="{DynamicResource MaterialDesignToolForegroundButton}" Margin="5 0 0 0" Width="50" Height="40" Panel.ZIndex="0" x:Name="btn_seleccionar" ToolTip="Importar" Click="btn_seleccionar_Click">
-                        <materialDesign:PackIcon Kind="Check"  Width="30" Height="30" />
+                        <materialDesign:PackIcon Kind="DatabaseImport"  Width="30" Height="30" />
                     </Button>
-                    <ProgressBar x:Name="Progreso" Width="300" Height="35"></ProgressBar>
+                    
                 </StackPanel>
             </DockPanel>
         </materialDesign:ColorZone>
         <!--TERMINA LA CABECERA -->
         <materialDesign:Card VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Grid.Row="1" Margin="10 80 10 10" Opacity="0.98" Visibility="Visible" x:Name="card_letra">
+            
             <Grid>
-                
+              
+                <ProgressBar
+    Style="{StaticResource MaterialDesignCircularProgressBar}"
+    Value="50"
+    IsIndeterminate="True" x:Name="progress_circular" Visibility="Hidden"/>
                 <ScrollViewer>
+
                     
-                
-                <ItemsControl Name="ImageList" ItemsSource="{Binding ImageList}">
+                    <ItemsControl Name="ImageList" ItemsSource="{Binding ImageList}">
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
-                            <Border BorderThickness="1" BorderBrush="#FFD0D1D7" Padding="5" Margin="10,10,0,0">
+                                <materialDesign:TransitioningContent OpeningEffectsOffset="{materialDesign:IndexedItemOffsetMultiplierExtension 0:0:0.1}"
+                                                                 Opacity="0"
+                                                                 RunHint="Loaded">
+                                    <materialDesign:TransitioningContent.OpeningEffects>
+                                        <materialDesign:TransitionEffect Kind="SlideInFromLeft" />
+                                        <materialDesign:TransitionEffect Kind="FadeIn" />
+                                    </materialDesign:TransitioningContent.OpeningEffects>
+                                    
+                                    <Border BorderThickness="1" BorderBrush="#FFD0D1D7" Padding="5" Margin="10,10,0,0">
                                 <StackPanel Orientation="Horizontal">
                                     <!--image and dimensions-->
                                     <Grid Width="88" Height="55">
@@ -96,7 +109,8 @@
                                     </StackPanel>
                                 </StackPanel>
                             </Border>
-                        </DataTemplate>
+                                </materialDesign:TransitioningContent>
+                            </DataTemplate>
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>
                 </ScrollViewer>

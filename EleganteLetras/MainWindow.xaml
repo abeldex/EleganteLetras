@@ -1,4 +1,4 @@
-﻿<controls:MetroWindow
+﻿<controls:MetroWindow x:Class="EleganteLetras.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -8,7 +8,7 @@
         xmlns:dragablz="clr-namespace:Dragablz;assembly=Dragablz"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
-        xmlns:dxre="http://schemas.devexpress.com/winfx/2008/xaml/richedit" x:Class="EleganteLetras.MainWindow"
+        xmlns:dxre="http://schemas.devexpress.com/winfx/2008/xaml/richedit"
         xmlns:my="http://schemas.microsoft.com/winfx/2006/xaml/presentation/ribbon"
 
         mc:Ignorable="d"

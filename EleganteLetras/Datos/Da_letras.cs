@@ -35,7 +35,7 @@ namespace EleganteLetras.Datos
                     sqlite_cmd.Parameters.AddWithValue("@grupo", grupo);
                     // Now lets execute the SQL ;-)
                     sqlite_cmd.ExecuteNonQuery();
-                    MessageBox.Show("Letra guardada correctamente!");
+                    //MessageBox.Show("Letra guardada correctamente!");
                     conexion.CerrarConexion();
                 }
 
