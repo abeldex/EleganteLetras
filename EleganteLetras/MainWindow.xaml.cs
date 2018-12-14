@@ -5,6 +5,10 @@ using System.Windows.Controls;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
+using QLicense;
+using DemoLicense;
+using System.Reflection;
+using System.IO;
 
 namespace EleganteLetras
 {
@@ -15,11 +19,77 @@ namespace EleganteLetras
     {
 
         MaterialDesignThemes.Wpf.PaletteHelper materialPaletteHelper = new MaterialDesignThemes.Wpf.PaletteHelper();
+        byte[] _certPubicKeyData;
 
-        
         public MainWindow()
         {
             InitializeComponent();
+
+            //Initialize variables with default values
+            MyLicense _lic = null;
+            string _msg = string.Empty;
+            LicenseStatus _status = LicenseStatus.UNDEFINED;
+
+            //Read public key from assembly
+            Assembly _assembly = Assembly.GetExecutingAssembly();
+            using (MemoryStream _mem = new MemoryStream())
+            {
+                _assembly.GetManifestResourceStream("EleganteLetras.LicenseSignLetras.cer").CopyTo(_mem);
+
+                _certPubicKeyData = _mem.ToArray();
+            }
+
+            //Check if the XML license file exists
+            if (File.Exists("license.lic"))
+            {
+                _lic = (MyLicense)LicenseHandler.ParseLicenseFromBASE64String(
+                    typeof(MyLicense),
+                    File.ReadAllText("license.lic"),
+                    _certPubicKeyData,
+                    out _status,
+                    out _msg);
+            }
+            else
+            {
+                _status = LicenseStatus.INVALID;
+                _msg = "Tu copia de esta instalación no está activada";
+            }
+
+            switch (_status)
+            {
+                case LicenseStatus.VALID:
+
+                    //TODO: If license is valid, you can do extra checking here
+                    //TODO: E.g., check license expiry date if you have added expiry date property to your license entity
+                    //TODO: Also, you can set feature switch here based on the different properties you added to your license entity 
+
+                    //Here for demo, just show the license information and RETURN without additional checking       
+
+                    //licInfo.ShowLicenseInfo(_lic);
+
+                    return;
+
+                default:
+                    //for the other status of license file, show the warning message
+                    //and also popup the activation form for user to activate your application
+                    System.Windows.MessageBox.Show(_msg);
+
+                    using (Form1 frm = new Form1())
+                    {
+                        frm.CertificatePublicKeyData = _certPubicKeyData;
+                        frm.ShowDialog();
+
+                        //Exit the application after activation to reload the license file 
+                        //Actually it is not nessessary, you may just call the API to reload the license file
+                        //Here just simplied the demo process
+
+                       //Application.Exit();
+                       System.Windows.Application.Current.Shutdown();
+
+                    }
+                    break;
+            }
+
             var border = (resultStack.Parent as ScrollViewer).Parent as Border;
             border.Visibility = Visibility.Collapsed;
 
@@ -34,6 +104,9 @@ namespace EleganteLetras
             {
                 MessageBox.Show(err.Message);
             }
+
+
+
         }
 
         private void txt_buscar_KeyUp(object sender, KeyEventArgs e)
