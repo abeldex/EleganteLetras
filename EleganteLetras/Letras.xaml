@@ -53,9 +53,9 @@
 
                         </Grid>
 
-
+                    
                     </materialDesign:ColorZone>
-
+                   
 
                 </StackPanel>
 
@@ -94,8 +94,8 @@
                                               
                                                 <materialDesign:PopupBox PlacementMode="BottomAndAlignRightEdges" StaysOpen="False" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0 -38 0 0" Foreground="{DynamicResource AccentColorBrush}">
                                                     <StackPanel>
-                                                        <Button BorderBrush="{x:Null}" x:Name="btn_perfil" CommandParameter="{Binding Id}" Content="Editar"  />
-                                                        <Button  Background="Red"  BorderBrush="{x:Null}" x:Name="btn_eliminar" CommandParameter="{Binding Id}" Content="Eliminar"/>
+                                                        <Button BorderBrush="{x:Null}" x:Name="btn_Editar" CommandParameter="{Binding Id}" Content="Editar"  />
+                                                        <Button  Background="Red"  BorderBrush="{x:Null}" x:Name="btn_eliminar" CommandParameter="{Binding Id}" Content="Eliminar" Click="btn_eliminar_Click"/>
                                                     </StackPanel>
                                                 </materialDesign:PopupBox>
                                             </StackPanel>
@@ -113,9 +113,12 @@
 
                     </ItemsControl>
                 </ScrollViewer>
-
+                
             </Grid>
 
         </materialDesign:Card>
+        <Button  Style="{StaticResource MaterialDesignFloatingActionButton}" x:Name="btn_nueva_letra" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="10 10 10 10" Background="White" BorderBrush="{x:Null}" Click="btn_nueva_letra_Click">
+            <materialDesign:PackIcon Kind="plus" Opacity=".56" Foreground="{StaticResource AccentColorBrush}" />
+        </Button>
     </Grid>
 </controls:MetroWindow>

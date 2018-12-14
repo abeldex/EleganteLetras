@@ -123,5 +123,31 @@ namespace EleganteLetras.Datos
             }
             return data;
         }
+
+        /// <summary>
+        /// Metodo para eliminar una letra seleccionada
+        /// </summary>
+        /// <param name="cod"></param>
+        /// <returns></returns>
+        public bool Eliminar(int cod)
+        {
+            try
+            {
+                if (conexion.AbrirConexion())
+                {
+                    SQLiteCommand sqlite_cmd = conexion.RetornarConexion().CreateCommand();
+                    sqlite_cmd.CommandText = @"DELETE FROM Letras WHERE Id="+cod;
+                    sqlite_cmd.ExecuteNonQuery();
+                }
+                conexion.CerrarConexion();
+                return true;
+            }
+            catch
+            {
+                conexion.CerrarConexion();
+                return false;
+            }
+        }
+
     }
 }

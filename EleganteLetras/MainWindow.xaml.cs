@@ -171,7 +171,7 @@ namespace EleganteLetras
 
         private void ListBoxItem_MouseUp(object sender, MouseButtonEventArgs e)
         {
-            NuevaLetra nl = new NuevaLetra();
+            Letras nl = new Letras();
             nl.Show();
         }
 
