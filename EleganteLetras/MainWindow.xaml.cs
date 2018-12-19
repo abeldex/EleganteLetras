@@ -218,6 +218,8 @@ namespace EleganteLetras
             txt_buscar.Text = "";
             lbl_id_evento.Content = "";
             txt_buscar.Focus();
+            var border = (resultStack.Parent as ScrollViewer).Parent as Border;
+            border.Visibility = Visibility.Hidden;
         }
 
         private void btn_seleccionar_Click(object sender, RoutedEventArgs e)
@@ -230,7 +232,7 @@ namespace EleganteLetras
             TabItem aTabItem = new TabItem();
             aTabItem.Name = "tab"+letra.Id;
             aTabItem.Header = letra.Nombre;
-            aTabItem.Content = new TabLetraContent(letra.Letra);
+            aTabItem.Content = new TabLetraContent(letra.Letra, letra.Id, letra.Nombre);
             aTabItem.IsSelected = true;
             aTabItem.AllowDrop = true;
             mainTabControl.Items.Insert(mainTabControl.Items.Count, aTabItem);
@@ -238,11 +240,6 @@ namespace EleganteLetras
         }
 
         private void tabDynamic_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
-        }
-
-        private void btnDelete_Click(object sender, RoutedEventArgs e)
         {
 
         }

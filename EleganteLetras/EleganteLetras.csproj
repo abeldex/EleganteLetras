@@ -132,6 +132,7 @@
     <Compile Include="Activation.xaml.cs">
       <DependentUpon>Activation.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Datos\Da_archivos.cs" />
     <Compile Include="FileDetails.cs" />
     <Compile Include="ImportarLetras.xaml.cs">
       <DependentUpon>ImportarLetras.xaml</DependentUpon>
@@ -235,6 +236,10 @@
     <Resource Include="img\bgtop.jpg" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ActivationControls4Win\ActivationControls4Win.csproj">
+      <Project>{ddf06eac-02df-4bda-a883-98b856bc1765}</Project>
+      <Name>ActivationControls4Win</Name>
+    </ProjectReference>
     <ProjectReference Include="..\DemoLicense\DemoLicense.csproj">
       <Project>{9f0bd6df-f288-451b-828e-6431e5441db8}</Project>
       <Name>DemoLicense</Name>

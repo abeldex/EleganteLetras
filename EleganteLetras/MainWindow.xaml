@@ -61,7 +61,9 @@
                 </DockPanel>
             </materialDesign:DrawerHost.RightDrawerContent>
             <Grid>
-                
+                <Grid.Background>
+                    <ImageBrush TileMode="Tile" Stretch="UniformToFill" ImageSource="/EleganteLetras;component/img/bg4.jpg"/>
+                </Grid.Background>
                 <!--ESTA ES LA CABECERA -->
                 <materialDesign:ColorZone Mode="PrimaryDark" Padding="16">
                     <DockPanel>

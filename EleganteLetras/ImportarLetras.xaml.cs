@@ -19,6 +19,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Windows.Threading;
+using MahApps.Metro.Controls;
+using MahApps.Metro.Controls.Dialogs;
 using SautinSoft.Document;
 
 
@@ -118,49 +120,47 @@ namespace EleganteLetras
 
         private void LoadFolderFiles()
         {
-            progress_circular.Visibility = Visibility.Visible;
-            try
-            {
-
-                var files = GetFiles(txt_buscar.Text, "*.doc", true);
-                List <FileDetails> documentos = new List<FileDetails>();
-                foreach (var file in files)
-                {
-                    //current++;
-                    //Progreso.Value = current / count * 30 + 70;
-                    FileDetails id = new FileDetails()
-                    {
-                        Path = file,
-                        FileName = System.IO.Path.GetFileNameWithoutExtension(file),
-                        Extension = System.IO.Path.GetExtension(file)
-                    };
-
-                    ImageSource imageSource;
-
-                    using (Icon ico = System.Drawing.Icon.ExtractAssociatedIcon(file))
-                    {
-                        imageSource = Imaging.CreateBitmapSourceFromHIcon(ico.Handle, Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions());
-                    }
-
-                    // I couldn't find file size in BitmapImage
-                    FileInfo fi = new FileInfo(file);
-                    id.Size = fi.Length;
-                    id.icono = imageSource;
-                    documentos.Add(id);
-                }
-
-                ImageList.ItemsSource = documentos;
-                progress_circular.Visibility = Visibility.Hidden;
-            }
-            catch (Exception err)
-            {
-                System.Windows.MessageBox.Show(err.Message);
-            }
+            //progress_circular.Visibility = Visibility.Visible;
+            LoadData();
         }
 
         private void txt_buscar_TextChanged(object sender, TextChangedEventArgs e)
         {
-            Dispatcher.BeginInvoke(new Action(LoadFolderFiles), null);
+            //Dispatcher.BeginInvoke(new Action(LoadFolderFiles), null);
+            LoadData();
         }
+
+        async void LoadData()
+        {
+            Datos.Da_archivos da = new Datos.Da_archivos();
+            //var metroWindow = (System.Windows.Application.Current.MainWindow as MetroWindow);
+            var controller = await this.ShowProgressAsync("Procesando...", "Buscando documentos Word en la carpeta seleccionada, no cierre la aplicación mientras se encuentra procesando...",
+                true, new MetroDialogSettings() { AnimateShow = true, ColorScheme = MetroDialogColorScheme.Theme });
+            controller.SetIndeterminate();
+            await Task.Delay(3500);
+            //controller.SetTitle("Magnetometer Calibration");
+            var docs = da.GetArchivos(txt_buscar.Text);
+            
+            await Dispatcher.BeginInvoke((Action)(async () =>
+            {
+                
+                await controller.CloseAsync();
+
+                if (controller.IsCanceled)
+                {
+                    await this.ShowMessageAsync("Busqueda Cancelada", "La busqueda de archivos word fue cancelada.");
+                }
+                else
+                {
+                    ImageList.ItemsSource = docs;
+                    //await this.ShowMessageAsync("Busqueda finalizada", "Los archivos word encontrados se mostrarán en la lista.");
+                }
+            }));
+
+           
+
+        }
+
+        
     }
 }

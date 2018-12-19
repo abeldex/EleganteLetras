@@ -19,6 +19,13 @@ namespace EleganteLetras.Datos
             conexion = new Conexion();
         }
 
+        /// <summary>
+        /// Metodo para insertar una nueva letra
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="nombre"></param>
+        /// <param name="letra"></param>
+        /// <param name="grupo"></param>
         public void Intertar_letra(int id, string nombre, string letra, string grupo)
         {
             try
@@ -33,6 +40,34 @@ namespace EleganteLetras.Datos
                     sqlite_cmd.Parameters.AddWithValue("@nombre",nombre);
                     sqlite_cmd.Parameters.AddWithValue("@letra", letra);
                     sqlite_cmd.Parameters.AddWithValue("@grupo", grupo);
+                    // Now lets execute the SQL ;-)
+                    sqlite_cmd.ExecuteNonQuery();
+                    //MessageBox.Show("Letra guardada correctamente!");
+                    conexion.CerrarConexion();
+                }
+
+            }
+            catch (Exception err)
+            {
+                MessageBox.Show(err.Message);
+            }
+        }
+
+        public void Actualizar_letra(int id, string nombre, string letra, string grupo)
+        {
+            try
+            {
+                if (conexion.AbrirConexion())
+                {
+                    //Create the command
+                    SQLiteCommand sqlite_cmd = conexion.RetornarConexion().CreateCommand();
+                    // Let the SQLiteCommand object know our SQL-Query:
+                    sqlite_cmd.CommandText = @" UPDATE Letras SET NOMBRE = @nombre, LETRA = @letra, GRUPO = @grupo WHERE Id = @id";
+                    //sqlite_cmd.Parameters.AddWithValue("@id", Guid.NewGuid());
+                    sqlite_cmd.Parameters.AddWithValue("@nombre", nombre);
+                    sqlite_cmd.Parameters.AddWithValue("@letra", letra);
+                    sqlite_cmd.Parameters.AddWithValue("@grupo", grupo);
+                    sqlite_cmd.Parameters.AddWithValue("@id", id);
                     // Now lets execute the SQL ;-)
                     sqlite_cmd.ExecuteNonQuery();
                     //MessageBox.Show("Letra guardada correctamente!");
