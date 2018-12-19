@@ -1,6 +1,8 @@
-﻿using System;
+﻿using SautinSoft.Document;
+using System;
 using System.Collections.Generic;
 using System.Data.SQLite;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -43,6 +45,49 @@ namespace EleganteLetras.Datos
                     // Now lets execute the SQL ;-)
                     sqlite_cmd.ExecuteNonQuery();
                     //MessageBox.Show("Letra guardada correctamente!");
+                    conexion.CerrarConexion();
+                }
+
+            }
+            catch (Exception err)
+            {
+                MessageBox.Show(err.Message);
+            }
+        }
+
+        /// <summary>
+        /// Metodo para insertar multiples letras  por medio de una lista de documentos seleccionados
+        /// </summary>
+        /// <param name="doc"></param>
+        public void Intertar_letras(List<FileDetails> doc)
+        {
+            try
+            {
+                if (conexion.AbrirConexion())
+                {
+                    foreach (var file in doc)
+                    {
+                        string rtfText;
+                        // Step 1: Load a docx document.
+                        DocumentCore dc = DocumentCore.Load(file.Path, LoadOptions.DocxDefault);
+                        using (MemoryStream ms = new MemoryStream())
+                        {
+                            dc.Save(ms, SaveOptions.RtfDefault);
+                            //tr.Save(ms, DataFormats.Rtf);
+                            rtfText = Encoding.UTF8.GetString(ms.ToArray());
+                        }
+
+                        //Create the command
+                        SQLiteCommand sqlite_cmd = conexion.RetornarConexion().CreateCommand();
+                        // Let the SQLiteCommand object know our SQL-Query:
+                        sqlite_cmd.CommandText = @" INSERT INTO Letras VALUES (null, @nombre,@letra,@grupo)";
+                        sqlite_cmd.Parameters.AddWithValue("@nombre", file.FileName);
+                        sqlite_cmd.Parameters.AddWithValue("@letra", rtfText);
+                        sqlite_cmd.Parameters.AddWithValue("@grupo", "");
+                        // Now lets execute the SQL ;-)
+                        sqlite_cmd.ExecuteNonQuery();
+                        //MessageBox.Show("Letra guardada correctamente!");
+                    }
                     conexion.CerrarConexion();
                 }
 

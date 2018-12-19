@@ -65,6 +65,7 @@ namespace EleganteLetras
         {
             try
             {
+
                 string rtfText; //string to save to db
                 TextRange tr = new TextRange(txt_letra.Document.ContentStart, txt_letra.Document.ContentEnd);
                 using (MemoryStream ms = new MemoryStream())
@@ -77,7 +78,6 @@ namespace EleganteLetras
                 new Datos.Da_letras().Actualizar_letra(_id, _nombre, rtfText, "");
                 var metroWindow = (Application.Current.MainWindow as MetroWindow);
                 await metroWindow.ShowMessageAsync("Información", "Los cambios realizados en la letra fueron guardados correctamente");
-                //MessageBox.Show("Letra Actualizada correctamente");
 
             }
             catch (Exception err)
@@ -86,22 +86,5 @@ namespace EleganteLetras
             }
         }
 
-        //EJEMPLO PARA CARGAR DATOS
-        /*async void LoadData()
-        {
-            var metroWindow = (Application.Current.MainWindow as MetroWindow);
-            var controller = await metroWindow.ShowProgressAsync("Procesando", "Obtener datos de la base de datos",
-                false, new MetroDialogSettings() { AnimateShow = true, ColorScheme = MetroDialogColorScheme.Theme });
-            controller.SetIndeterminate();
-
-            await viewModel.LoadData();
-
-            await Dispatcher.BeginInvoke((Action)(async () =>
-            {
-                DataGrid1.ItemsSource = viewModel.AModels;
-
-                await controller.CloseAsync();
-            }));
-        }*/
     }
 }

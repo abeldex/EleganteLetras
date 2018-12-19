@@ -1,27 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
 using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Forms;
-using System.Windows.Input;
-using System.Windows.Interop;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using System.Windows.Threading;
-using MahApps.Metro.Controls;
 using MahApps.Metro.Controls.Dialogs;
-using SautinSoft.Document;
 
 
 namespace EleganteLetras
@@ -36,58 +21,69 @@ namespace EleganteLetras
             InitializeComponent();
         }
 
-
-        private void btn_seleccionar_Click(object sender, RoutedEventArgs e)
+        async Task<List<FileDetails>> GetSelectedFiles()
         {
-            try
+            List<FileDetails> docs_selected = new List<FileDetails>();
+            foreach (var item in ImageList.Items)
             {
-                var files = GetFiles(txt_buscar.Text, "*.doc", true);
-                List<FileDetails> documentos = new List<FileDetails>();
-                foreach (var file in files)
+                var container = ImageList.ItemContainerGenerator.ContainerFromItem(item) as FrameworkElement;
+                FileDetails archivo = container.DataContext as FileDetails;
+
+                var checkbox = ImageList.ItemTemplate.FindName("DocCheckBox", container) as CheckBox;
+
+                if (checkbox.IsChecked.Value == true)
                 {
-                    FileDetails id = new FileDetails()
-                    {
-                        Path = file,
-                        FileName = System.IO.Path.GetFileNameWithoutExtension(file),
-                        Extension = System.IO.Path.GetExtension(file)
-                    };
-
-                    ImageSource imageSource;
-
-                    using (Icon ico = System.Drawing.Icon.ExtractAssociatedIcon(file))
-                    {
-                        imageSource = Imaging.CreateBitmapSourceFromHIcon(ico.Handle, Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions());
-                    }
-
-                    // I couldn't find file size in BitmapImage
-                    FileInfo fi = new FileInfo(file);
-                    id.Size = fi.Length;
-                    id.icono = imageSource;
-                    documentos.Add(id);
-                    //guardar en la base de datos si es un archivo de word
-                    string rtfText;
-                    // Step 1: Load a docx document.
-                    DocumentCore dc = DocumentCore.Load(id.Path, LoadOptions.DocxDefault);
-                    using (MemoryStream ms = new MemoryStream())
-                    {
-                        dc.Save(ms, SaveOptions.RtfDefault);
-                        //tr.Save(ms, DataFormats.Rtf);
-                        rtfText = Encoding.UTF8.GetString(ms.ToArray());
-                    }
-                    new Datos.Da_letras().Intertar_letra(0, id.FileName, rtfText, "");
-
+                    //agregamos a una lista los elementos seleccionados
+                    docs_selected.Add(archivo);
                 }
             }
-            catch (Exception err)
+            return docs_selected;
+        }
+
+        private async void btn_seleccionar_Click(object sender, RoutedEventArgs e)
+        {
+            var controller = await this.ShowProgressAsync("Importando...", "Guardando los documentos seleccionados en la base de datos, no cierre la aplicación mientras se encuentra procesando...",
+               true, new MetroDialogSettings() { AnimateShow = true, ColorScheme = MetroDialogColorScheme.Theme });
+            controller.SetIndeterminate();
+            await Task.Delay(3500);
+            List<FileDetails> docs_selected = await GetSelectedFiles();
+            await Dispatcher.BeginInvoke((Action)(async () =>
             {
-                System.Windows.MessageBox.Show(err.Message);
-            }
+                await controller.CloseAsync();
+
+                if (controller.IsCanceled)
+                {
+                    await this.ShowMessageAsync("Importacion Cancelada", "La importacion de archivos word fue cancelada.");
+                }
+                else
+                {
+                    try
+                    {
+
+                        //Insertar los documentos en la base de datos si se han seleccionado
+                        if (docs_selected.Count > 0)
+                        {
+                            new Datos.Da_letras().Intertar_letras(docs_selected);
+                            await this.ShowMessageAsync("Importación Exitosa", "Los documentos seleccionados fueron cargados correctamente.");
+                        }
+                        else
+                            await this.ShowMessageAsync("Atención", "Seleccione al menos un documento para iniciar la importación.");
+
+
+                    }
+                    catch (Exception err)
+                    {
+                        System.Windows.MessageBox.Show(err.Message);
+                    }
+                }
+            }));
+            
 
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            var dialog = new FolderBrowserDialog();
+            var dialog = new System.Windows.Forms.FolderBrowserDialog();
             dialog.ShowDialog();
             txt_buscar.Text = dialog.SelectedPath;
         }

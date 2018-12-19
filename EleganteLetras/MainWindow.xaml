@@ -64,8 +64,9 @@
                 <Grid.Background>
                     <ImageBrush TileMode="Tile" Stretch="UniformToFill" ImageSource="/EleganteLetras;component/img/bg4.jpg"/>
                 </Grid.Background>
+                
                 <!--ESTA ES LA CABECERA -->
-                <materialDesign:ColorZone Mode="PrimaryDark" Padding="16">
+                <materialDesign:ColorZone Mode="PrimaryDark" Padding="16" x:Name="cabecera">
                     <DockPanel>
                         <ToggleButton Style="{StaticResource MaterialDesignHamburgerToggleButton}" IsChecked="False"
                                         x:Name="MenuToggleButton" DockPanel.Dock="Right"/>
@@ -115,17 +116,19 @@
                 <!--card para los registros -->
                 <materialDesign:Card VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Grid.Row="1" Margin="10 80 10 10" Opacity="0.98" Visibility="Visible" x:Name="card_letra">
                     <Grid>
-
+                        
                         <dragablz:TabablzControl Margin="8" x:Name="mainTabControl" ShowDefaultCloseButton="True" SelectionChanged="mainTabControl_SelectionChanged">
                         <dragablz:TabablzControl.InterTabController>
                                 <dragablz:InterTabController Partition="Primary" />
                         </dragablz:TabablzControl.InterTabController>
                            
                         </dragablz:TabablzControl>
+                        <ToggleButton IsChecked="False"
+                                        x:Name="MenuToggleButton2" HorizontalAlignment="Right" VerticalAlignment="Top" Click="MenuToggleButton2_Click"/>
                     </Grid>
                 
                 </materialDesign:Card>
-
+                
                 <Border Width="318" HorizontalAlignment="Left" Margin="0 73 0 0" BorderBrush="Black"   
                 BorderThickness="0" Background="White" CornerRadius="2">
                     <ScrollViewer VerticalScrollBarVisibility="Auto" Margin="10 10 10 10 ">

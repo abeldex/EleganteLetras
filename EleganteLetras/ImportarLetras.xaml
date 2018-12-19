@@ -86,7 +86,8 @@
                                 <StackPanel Orientation="Horizontal">
                                     <!--image and dimensions-->
                                     <Grid Width="88" Height="55">
-                                        <Image Source="{Binding icono}"/>
+                                                <CheckBox x:Name="DocCheckBox" Width="100" IsChecked="True"/>
+                                                <Image Source="{Binding icono}"/>
                                         
                                     </Grid>
                                     <!--name, type and size-->

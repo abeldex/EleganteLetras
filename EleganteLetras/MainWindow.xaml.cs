@@ -76,7 +76,7 @@ namespace EleganteLetras
                 default:
                     //for the other status of license file, show the warning message
                     //and also popup the activation form for user to activate your application
-                   
+
                     //System.Windows.MessageBox.Show(_msg);
 
                     using (Activation frm = new Activation())
@@ -88,8 +88,8 @@ namespace EleganteLetras
                         //Actually it is not nessessary, you may just call the API to reload the license file
                         //Here just simplied the demo process
 
-                       //Application.Exit();
-                       System.Windows.Application.Current.Shutdown();
+                        //Application.Exit();
+                        System.Windows.Application.Current.Shutdown();
 
                     }
                     break;
@@ -103,7 +103,7 @@ namespace EleganteLetras
                 Datos.Tablas tablas = new Datos.Tablas();
                 tablas.VerificarTablaLetras();
                 //MessageBox.Show("Tablas Verificadas");
-                
+
             }
             catch (Exception err)
             {
@@ -211,7 +211,7 @@ namespace EleganteLetras
             LightThemeCheckBox.IsChecked = false;
         }
 
-       
+
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
@@ -230,13 +230,13 @@ namespace EleganteLetras
 
             //Creamos un nuevo tab para la cancion seleccionada
             TabItem aTabItem = new TabItem();
-            aTabItem.Name = "tab"+letra.Id;
+            aTabItem.Name = "tab" + letra.Id;
             aTabItem.Header = letra.Nombre;
             aTabItem.Content = new TabLetraContent(letra.Letra, letra.Id, letra.Nombre);
             aTabItem.IsSelected = true;
             aTabItem.AllowDrop = true;
             mainTabControl.Items.Insert(mainTabControl.Items.Count, aTabItem);
-            
+
         }
 
         private void tabDynamic_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -260,7 +260,14 @@ namespace EleganteLetras
         {
         }
 
-
+        private void MenuToggleButton2_Click(object sender, RoutedEventArgs e)
+        {
+            /*if (MenuToggleButton2.IsChecked == true)
+            {
+                cabecera.Visibility = Visibility.Hidden;
+            }    
+            else if (MenuToggleButton2.IsChecked == false)
+                cabecera.Visibility = Visibility.Visible;*/
+        }
     }
-
 }
