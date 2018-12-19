@@ -19,7 +19,7 @@
         TextOptions.TextRenderingMode="Auto"
         Background="{DynamicResource MaterialDesignPaper}"    
         FontFamily="{DynamicResource MaterialDesignFont}"             
-        Title="" Height="720" Width="1024" WindowStartupLocation="CenterScreen" WindowState="Maximized" Icon="img/letras_App.png">
+        Title="" Height="720" Width="1024" WindowStartupLocation="CenterScreen" WindowState="Maximized">
     <controls:MetroWindow.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -34,7 +34,7 @@
         <materialDesign:DrawerHost IsRightDrawerOpen="{Binding IsChecked, ElementName=MenuToggleButton}">
             <materialDesign:DrawerHost.RightDrawerContent>
                 <DockPanel MinWidth="212">
-                    <Image x:Name="logo" Height="180" Stretch="Uniform" Margin="0 0 0 0" DockPanel.Dock="Top" HorizontalAlignment="Center" Source="img/letras_App.png" />
+                    <Image x:Name="logo" Height="180" Stretch="Uniform" Margin="0 0 0 0" DockPanel.Dock="Top" HorizontalAlignment="Center" Source="img/unnamed-1.png" />
                     <ListBox x:Name="MenuListBox" Margin="0 0 0 0" SelectedIndex="0">
                         <Separator/>
                         <ListBoxItem MouseUp="ListBoxItem_MouseUp">
@@ -61,9 +61,7 @@
                 </DockPanel>
             </materialDesign:DrawerHost.RightDrawerContent>
             <Grid>
-                <Grid.Background>
-                    <ImageBrush TileMode="Tile" Stretch="UniformToFill" ImageSource="/EleganteLetras;component/img/bg4.jpg"/>
-                </Grid.Background>
+                
                 <!--ESTA ES LA CABECERA -->
                 <materialDesign:ColorZone Mode="PrimaryDark" Padding="16">
                     <DockPanel>
@@ -104,7 +102,7 @@
                             <Label VerticalAlignment="Center" HorizontalAlignment="Right" Foreground="White" FontSize="20" Content="Tema:"/>
                             <CheckBox x:Name="LightThemeCheckBox" VerticalAlignment="Center" HorizontalAlignment="Right" Style="{StaticResource MaterialDesignActionDarkCheckBox}" Background="#FFD1D1D1" BorderBrush="{x:Null}" Foreground="#FF292929" Margin="5 0 0 0 " Checked="LightThemeCheckBox_Checked"/>
                             <CheckBox x:Name="DarkThemeCheckBox" VerticalAlignment="Center" HorizontalAlignment="Right"  Style="{StaticResource MaterialDesignActionDarkCheckBox}" Background="Black" BorderBrush="{x:Null}" Foreground="White" Margin="5 0 0 0" Checked="DarkThemeCheckBox_Checked"/>
-                            <Label x:Name="lbl_id_evento" VerticalAlignment="Center" Visibility="Visible"></Label>
+                            <Label x:Name="lbl_id_evento" VerticalAlignment="Center" Visibility="Hidden"></Label>
     
                         </StackPanel>
 
@@ -116,9 +114,9 @@
                 <materialDesign:Card VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Grid.Row="1" Margin="10 80 10 10" Opacity="0.98" Visibility="Visible" x:Name="card_letra">
                     <Grid>
 
-                        <dragablz:TabablzControl Margin="8" x:Name="mainTabControl">
+                        <dragablz:TabablzControl Margin="8" x:Name="mainTabControl" ShowDefaultCloseButton="True" SelectionChanged="mainTabControl_SelectionChanged">
                         <dragablz:TabablzControl.InterTabController>
-                            <dragablz:InterTabController />
+                                <dragablz:InterTabController Partition="Primary" />
                         </dragablz:TabablzControl.InterTabController>
                            
                         </dragablz:TabablzControl>

@@ -9,6 +9,7 @@ using QLicense;
 using DemoLicense;
 using System.Reflection;
 using System.IO;
+using Dragablz;
 
 namespace EleganteLetras
 {
@@ -24,6 +25,9 @@ namespace EleganteLetras
         public MainWindow()
         {
             InitializeComponent();
+
+            var border1 = (resultStack.Parent as ScrollViewer).Parent as Border;
+            border1.Visibility = Visibility.Hidden;
 
             //Initialize variables with default values
             MyLicense _lic = null;
@@ -72,9 +76,10 @@ namespace EleganteLetras
                 default:
                     //for the other status of license file, show the warning message
                     //and also popup the activation form for user to activate your application
-                    System.Windows.MessageBox.Show(_msg);
+                   
+                    //System.Windows.MessageBox.Show(_msg);
 
-                    using (Form1 frm = new Form1())
+                    using (Activation frm = new Activation())
                     {
                         frm.CertificatePublicKeyData = _certPubicKeyData;
                         frm.ShowDialog();
@@ -253,7 +258,12 @@ namespace EleganteLetras
             ImportarLetras il = new ImportarLetras();
             il.Show();
         }
-    }
 
+        private void mainTabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+        }
+
+
+    }
 
 }

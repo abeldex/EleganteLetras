@@ -13,7 +13,7 @@
         TextElement.FontWeight="Regular"
         Background="{DynamicResource MaterialDesignPaper}"    
         FontFamily="{DynamicResource MaterialDesignFont}"    
-        Title="Importar Letras de Canciones" Height="600" Width="800" WindowStartupLocation="CenterScreen" Icon="img/letras_App.png">
+        Title="Importar Letras de Canciones" Height="600" Width="800" WindowStartupLocation="CenterScreen">
     <controls:MetroWindow.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>

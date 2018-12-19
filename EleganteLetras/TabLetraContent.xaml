@@ -49,5 +49,11 @@
             <wpfx:ColorPicker x:Name="ColorPickerTab" DisplayColorAndName="False" ShowDropDownButton="False"  SelectedColorChanged="ColorPickerTab_SelectedColorChanged"  BorderBrush="{x:Null}" Background="{x:Null}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
 
         </ToolBar>
+        <Button x:Name="btn_actualizar" Style="{StaticResource MaterialDesignFloatingActionButton}" 
+            Margin="0,10,25,0" HorizontalAlignment="Right" VerticalAlignment="Top"
+            ToolTip="Guardar Cambios" Height="48" Width="48" BorderBrush="{x:Null}" >
+            <materialDesign:PackIcon Kind="ContentSave" Height="24" Width="24" BorderBrush="{x:Null}" />
+
+        </Button>
     </Grid>
 </UserControl>

@@ -9,7 +9,7 @@
         xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
         xmlns:local="clr-namespace:EleganteLetras"
         mc:Ignorable="d"
-        Title="" Height="600" Width="800" Icon="img/letras_App.png" WindowStartupLocation="CenterScreen">
+        Title="" Height="600" Width="800" WindowStartupLocation="CenterScreen">
     <Grid>
         <materialDesign:ColorZone Mode="PrimaryDark" Padding="0" Height="120">
             <DockPanel>

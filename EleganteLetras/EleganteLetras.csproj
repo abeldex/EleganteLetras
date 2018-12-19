@@ -37,6 +37,9 @@
   <PropertyGroup>
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>unnamed-1.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="ControlzEx, Version=3.0.2.4, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\ControlzEx.3.0.2.4\lib\net45\ControlzEx.dll</HintPath>
@@ -63,8 +66,9 @@
       <HintPath>..\packages\Microsoft.Office.Interop.Word.15.0.4797.1003\lib\net20\Microsoft.Office.Interop.Word.dll</HintPath>
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
-    <Reference Include="QLicense.Windows.Controls">
-      <HintPath>..\..\..\Videos\QLicense120\Core\ActivationControls4Win\bin\Debug\QLicense.Windows.Controls.dll</HintPath>
+    <Reference Include="QLicense.Windows.Controls, Version=1.1.0.0, Culture=neutral, PublicKeyToken=0584bd2b5460a902, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\ActivationControls4Win\bin\Debug\QLicense.Windows.Controls.dll</HintPath>
     </Reference>
     <Reference Include="SautinSoft.Document, Version=3.6.12.4, Culture=neutral, PublicKeyToken=e759c76c7515592a, processorArchitecture=MSIL">
       <HintPath>..\packages\sautinsoft.document.3.6.12.4\lib\net45\SautinSoft.Document.dll</HintPath>
@@ -129,12 +133,6 @@
       <DependentUpon>Activation.xaml</DependentUpon>
     </Compile>
     <Compile Include="FileDetails.cs" />
-    <Compile Include="Form1.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
-    </Compile>
     <Compile Include="ImportarLetras.xaml.cs">
       <DependentUpon>ImportarLetras.xaml</DependentUpon>
     </Compile>
@@ -202,9 +200,6 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <EmbeddedResource Include="Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Licenses.licx" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -228,7 +223,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <SplashScreen Include="img\letras_App.png" />
+    <None Include="img\letras_App.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="img\bg4.jpg" />
@@ -240,14 +235,20 @@
     <Resource Include="img\bgtop.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\Videos\QLicense120\Core\QLicense\QLicense.csproj">
-      <Project>{1980e43f-c5e4-4a2b-95a6-1aebdc7ee2b7}</Project>
-      <Name>QLicense</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\Videos\QLicense120\Demo\DemoLicense\DemoLicense.csproj">
+    <ProjectReference Include="..\DemoLicense\DemoLicense.csproj">
       <Project>{9f0bd6df-f288-451b-828e-6431e5441db8}</Project>
       <Name>DemoLicense</Name>
     </ProjectReference>
+    <ProjectReference Include="..\QLicense\QLicense.csproj">
+      <Project>{1980e43f-c5e4-4a2b-95a6-1aebdc7ee2b7}</Project>
+      <Name>QLicense</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="unnamed-1.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <SplashScreen Include="img\unnamed-1.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\System.Data.SQLite.Core.1.0.109.2\build\net45\System.Data.SQLite.Core.targets" Condition="Exists('..\packages\System.Data.SQLite.Core.1.0.109.2\build\net45\System.Data.SQLite.Core.targets')" />
